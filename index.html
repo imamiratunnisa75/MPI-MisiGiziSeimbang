@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Misi Gizi Seimbang – Kuis Interaktif IPAS Kelas 6</title>
+<style>
+:root{--p:#16a34a;--p2:#0284c7;--bg:#f4f7fb;--ink:#0f172a;--mut:#64748b;--ok:#dcfce7;--no:#fee2e2;--ln:#e2e8f0}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+header{background:#fff;border-bottom:1px solid var(--ln);position:sticky;top:0;z-index:5;padding:10px 16px 0}
+.hd{max-width:900px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px}
+h1{font-size:1.1rem;margin:0}
+#nav{display:flex;gap:6px}
+#nav button{width:32px;height:32px;border-radius:50%;border:2px solid var(--ln);background:#fff;font-weight:700;color:var(--mut);cursor:pointer}
+#nav .on{background:var(--p);border-color:var(--p);color:#fff}
+#nav .dn{border-color:var(--p);color:var(--p)}
+#bar{height:4px;background:var(--ln);margin:10px -16px 0}#bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--p),var(--p2));transition:width .4s}
+main{max-width:900px;margin:18px auto;padding:0 14px 40px}
+section[hidden]{display:none}
+.card{background:#fff;border:1px solid var(--ln);border-radius:18px;padding:20px;box-shadow:0 2px 10px #0f172a0a;margin-bottom:14px}
+h2{margin:0 0 4px;font-size:1.4rem}h3{margin:.2rem 0}
+.sub{color:var(--mut);margin:0 0 14px}
+.btn{background:var(--p);color:#fff;border:0;border-radius:12px;padding:11px 20px;font-size:1rem;font-weight:700;cursor:pointer}
+.btn.alt{background:#fff;color:var(--ink);border:2px solid var(--ln)}
+.btn:hover{filter:brightness(.95)}
+.row{display:flex;gap:10px;flex-wrap:wrap;justify-content:space-between;margin-top:16px}
+.goal{background:#f0fdf4;border-left:5px solid var(--p);padding:12px 14px;border-radius:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:10px}
+.food{border:2px solid var(--ln);background:#fff;border-radius:14px;padding:10px;font-size:.95rem;font-weight:600;cursor:pointer}
+.food span{display:block;font-size:2rem}.food.seen{border-color:var(--p);background:#f0fdf4}
+#info{margin-top:14px;min-height:92px;background:#f8fafc;border-radius:14px;padding:12px 16px;border:1px dashed #cbd5e1}
+.tag{display:inline-block;background:#e0f2fe;color:#075985;border-radius:99px;padding:2px 10px;font-size:.82rem;margin:0 6px 4px 0;font-weight:600}
+.tray{display:flex;flex-wrap:wrap;gap:8px;padding:12px;background:#f8fafc;border-radius:14px;min-height:56px;margin-bottom:12px}
+.it{background:#fff;border:2px solid #cbd5e1;border-radius:12px;padding:8px 12px;cursor:grab;font-weight:600;user-select:none}
+.it.sel{border-color:var(--p2);box-shadow:0 0 0 3px #bae6fd}
+.it.done{border-color:var(--p);background:var(--ok);cursor:default}
+.zone{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.tg{border:2px dashed #94a3b8;border-radius:14px;padding:10px;min-height:90px;cursor:pointer;background:#fff}
+.tg>b{display:block;font-size:.95rem;margin-bottom:6px}
+.tg .slot{display:flex;flex-wrap:wrap;gap:6px}
+.tg.full{border-style:solid;border-color:var(--p);background:#f0fdf4}
+.tg.bad{animation:sh .4s;border-color:#ef4444}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.fb{margin-top:12px;padding:10px 14px;border-radius:12px;font-weight:600;min-height:44px;background:#f1f5f9}
+.fb.ok{background:var(--ok);color:#14532d}.fb.no{background:var(--no);color:#7f1d1d}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:12px 14px;border-radius:12px;border:2px solid var(--ln);background:#fff;font-size:1rem;cursor:pointer}
+.opt:hover:not(:disabled){border-color:var(--p2)}
+.opt.r{background:var(--ok);border-color:var(--p)}.opt.w{background:var(--no);border-color:#ef4444}
+.story{background:#fffbeb;border-left:5px solid #f59e0b;padding:10px 14px;border-radius:10px;margin-bottom:10px}
+select,textarea{width:100%;padding:10px;border-radius:10px;border:2px solid var(--ln);font-size:1rem;font-family:inherit}
+label{font-weight:600;display:block;margin:10px 0 4px}
+.meter{height:16px;background:var(--ln);border-radius:99px;overflow:hidden}.meter i{display:block;height:100%;background:linear-gradient(90deg,var(--p),var(--p2))}
+.big{font-size:2.4rem;font-weight:800;color:var(--p)}
+ul.res{padding-left:18px}
+input#nm{width:100%;padding:10px;border-radius:10px;border:2px solid var(--ln);font-size:1rem;font-family:inherit}
+.dash{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0 4px}
+.dcard{text-align:left;background:#fff;border:2px solid var(--ln);border-radius:14px;padding:14px;font-size:1.05rem;font-weight:700;cursor:pointer;font-family:inherit;color:var(--ink)}
+.dcard small{display:block;font-weight:500;color:var(--mut);margin-top:2px;font-size:.88rem}
+.dcard:hover{border-color:var(--p2)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:10px 0}
+.stat{background:#f8fafc;border:1px solid var(--ln);border-radius:14px;padding:12px;text-align:center;font-size:.9rem}
+.stat b{display:block;font-size:1.6rem;color:var(--p)}
+.bl{display:flex;justify-content:space-between;font-weight:600;margin:10px 0 4px}
+.tw{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:560px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--ln);text-align:left;font-size:.92rem}th{background:#f8fafc}
+.st-ok{color:#166534;font-weight:700}.st-no{color:#b45309;font-weight:700}
+</style></head><body>
+<header><div class="hd"><h1>🥗 Misi Gizi Seimbang</h1><nav id="nav"></nav></div><div id="bar"><i></i></div></header>
+<main>
+
+<section id="s0"><div class="card">
+<h2>Halo, Detektif Gizi! 🕵️</h2>
+<p class="sub">IPAS Kelas 6 · Zat Gizi Seimbang · Sekitar 2 × 35 menit</p>
+<p>Tubuhmu seperti mesin yang terus bekerja: berpikir, berlari, tumbuh. Agar tetap sehat, tubuh perlu bahan bakar yang tepat. Dalam misi ini kamu akan menyelidiki makanan di sekitarmu, memilah, mencocokkan, menyusun, lalu menjawab kuis.</p>
+<div class="goal"><b>Tujuan belajar:</b> kamu dapat (1) mengidentifikasi kandungan zat gizi dalam makanan dan (2) menerapkan prinsip gizi seimbang saat memilih makanan untuk menjaga kesehatan tubuh.</div>
+<p><b>Cara bermain:</b> klik kartu untuk menjelajah. Pada aktivitas pasangan, <i>seret kartu</i> ke tempatnya, atau <i>ketuk kartu lalu ketuk tempatnya</i> (cocok untuk telepon genggam). Salah itu wajar, kamu boleh mencoba lagi! 💪</p>
+<label for="nm">Nama kamu (agar hasilmu tercatat di dashboard)</label>
+<input id="nm" maxlength="40" placeholder="Tulis namamu di sini" autocomplete="off">
+<div class="dash">
+<button class="dcard" onclick="go(8)">📊 Dashboard Siswa<small>Lihat progres dan nilaimu</small></button>
+<button class="dcard" onclick="go(9)">👩‍🏫 Dashboard Guru<small>Rekap hasil belajar kelas</small></button>
+</div>
+<div class="row"><span></span><button class="btn" onclick="go(1)">Mulai Misi →</button></div>
+</div></section>
+
+<section id="s1" hidden><div class="card">
+<h2>Misi 1 · Jelajahi Makanan 🔍</h2>
+<p class="sub">Klik setiap makanan untuk mengetahui zat gizi utamanya. Dijelajahi: <b id="cnt">0</b>/8</p>
+<div class="grid" id="fgrid"></div>
+<div id="info"><p style="color:var(--mut)">Klik salah satu makanan di atas untuk melihat informasinya.</p></div>
+<div class="fb ok" id="exOk" hidden>🎉 Hebat, kamu sudah menjelajahi semua makanan! Lanjut ke misi berikutnya.</div>
+<div class="row"><button class="btn alt" onclick="go(0)">← Kembali</button><button class="btn" onclick="go(2)">Lanjut →</button></div>
+</div></section>
+
+<section id="s2" hidden><div class="card">
+<h2>Misi 2 · Kelompokkan Makanan 📦</h2>
+<p class="sub">Seret setiap makanan ke kelompok zat gizi yang <b>paling dominan</b> di dalamnya.</p>
+<div class="tray" id="ddT"></div><div class="zone" id="ddZ"></div>
+<div class="fb" id="ddF">Pilih satu kartu makanan, lalu letakkan di kelompok yang tepat.</div>
+<div class="row"><button class="btn alt" onclick="go(1)">← Kembali</button><button class="btn" onclick="go(3)">Lanjut →</button></div>
+</div></section>
+
+<section id="s3" hidden><div class="card">
+<h2>Misi 3 · Cocokkan Zat Gizi dan Fungsinya 🔗</h2>
+<p class="sub">Setiap zat gizi punya tugas khusus. Pasangkan zat gizi dengan fungsinya.</p>
+<div class="tray" id="mtT"></div><div class="zone" id="mtZ"></div>
+<div class="fb" id="mtF">Pilih satu zat gizi, lalu pilih fungsinya.</div>
+<div class="row"><button class="btn alt" onclick="go(2)">← Kembali</button><button class="btn" onclick="go(4)">Lanjut →</button></div>
+</div></section>
+
+<section id="s4" hidden><div class="card">
+<h2>Misi 4 · Puzzle Isi Piringku 🍽️</h2>
+<p class="sub">Piringku belum lengkap! Letakkan potongan petunjuk ke bagian piring yang tepat.</p>
+<div class="tray" id="pzT"></div><div class="zone" id="pzZ"></div>
+<div class="fb" id="pzF">Baca petunjuk pada kartu, lalu tentukan bagian piringnya.</div>
+<div class="fb ok" id="pzOk" hidden>🍽️ Piringmu lengkap! Prinsip Isi Piringku: sayur dan buah mengisi sekitar setengah piring, sisanya makanan pokok dan lauk pauk.</div>
+<div class="row"><button class="btn alt" onclick="go(3)">← Kembali</button><button class="btn" onclick="go(5)">Lanjut ke Kuis →</button></div>
+</div></section>
+
+<section id="s5" hidden><div class="card">
+<h2>Misi 5 · Kuis Detektif Gizi 🧠</h2>
+<p class="sub" id="qn"></p><div id="qb"></div>
+<div class="fb" id="qF">Pilih jawaban yang paling tepat.</div>
+<div class="row"><button class="btn alt" onclick="go(4)">← Kembali</button><button class="btn" id="qNext" hidden onclick="nextQ()">Lanjut →</button></div>
+</div></section>
+
+<section id="s6" hidden><div class="card">
+<h2>Misi 6 · Rancang Menu Sehatmu ✨</h2>
+<p class="sub">Kamu adalah penyusun menu! Pilih satu makanan untuk tiap bagian piring, lalu periksa.</p>
+<div id="mn"></div>
+<div class="row"><span></span><button class="btn" onclick="checkMenu()">Periksa Menuku</button></div>
+<div class="fb" id="mnF">Pilih menu favoritmu, lalu klik "Periksa Menuku".</div>
+<div class="row"><button class="btn alt" onclick="go(5)">← Kembali</button><button class="btn" onclick="go(7)">Lihat Hasil →</button></div>
+</div></section>
+
+<section id="s7" hidden><div class="card">
+<h2>Hasil Misi 🏆</h2>
+<p class="big" id="pct"></p>
+<div class="meter"><i id="mt" style="width:0"></i></div>
+<p id="msg" style="font-weight:600"></p>
+<ul class="res" id="rs"></ul>
+<h3>Refleksi 💭</h3>
+<label for="rf1">Satu kebiasaan makan yang akan kuubah atau pertahankan adalah…</label>
+<textarea id="rf1" rows="2" placeholder="Contoh: Aku akan menambah sayur saat makan siang."></textarea>
+<label for="rf2">Hal paling menarik yang kupelajari hari ini adalah…</label>
+<textarea id="rf2" rows="2"></textarea>
+<div class="row"><button class="btn alt" onclick="restart()">↺ Ulangi Misi</button><button class="btn" onclick="$('#fin').hidden=false;this.hidden=true">Selesai ✔</button></div>
+<div class="fb ok" id="fin" hidden>Terima kasih sudah belajar! Ingat: makan beragam, bergizi, seimbang, dan aman. Tetap semangat sehat! 🌟</div>
+</div></section>
+<section id="s8" hidden><div class="card">
+<h2>📊 Dashboard Siswa</h2><p class="sub" id="dsName"></p>
+<div class="stats" id="dsStats"></div>
+<h3>Skor Sesi Ini</h3><div id="dsBars"></div>
+<h3 style="margin-top:16px">Riwayat Percobaan</h3><div id="dsHist"></div>
+<div class="row"><button class="btn alt" onclick="go(0)">← Halaman Awal</button><button class="btn" onclick="go(1)">Mulai / Lanjut Misi →</button></div>
+</div></section>
+
+<section id="s9" hidden><div class="card">
+<h2>👩‍🏫 Dashboard Guru</h2>
+<p class="sub">Rekap nilai terbaik tiap siswa yang mengerjakan di perangkat ini. Tuntas bila nilai ≥ 70%.</p>
+<div class="stats" id="dgStats"></div>
+<h3>Rata-rata per Aktivitas</h3><div id="dgBars"></div>
+<h3 style="margin-top:16px">Daftar Siswa</h3><div id="dgTbl"></div>
+<div class="row"><button class="btn alt" onclick="go(0)">← Halaman Awal</button>
+<span style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn alt" onclick="csv()">⬇ Unduh CSV</button><button class="btn alt" onclick="clr()">🗑 Hapus Data</button></span></div>
+<p class="sub" style="margin-top:10px">Catatan: data tersimpan di browser perangkat ini. Untuk menggabungkan beberapa perangkat, unduh CSV dari tiap perangkat.</p>
+</div></section>
+</main>
+
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let sc,cur=0,qi=0,qTried=false;
+const MAX={dd:8,mt:5,pz:4,qz:5};
+const NAMES=['Mulai','Jelajah','Kelompok','Cocokkan','Puzzle','Kuis','Menu','Hasil'];
+NAMES.forEach((n,i)=>{const b=document.createElement('button');b.textContent=i+1;b.title=n;b.onclick=()=>go(i);$('#nav').appendChild(b)});
+function go(i){cur=i;$$('main>section').forEach((s,j)=>s.hidden=j!==i);
+$$('#nav button').forEach((b,j)=>b.className=i>7?'':j===i?'on':j<i?'dn':'');
+$('#bar i').style.width=(i>7?0:i/7*100)+'%';if(i===7)result();if(i===8)dashS();if(i===9)dashG();scrollTo(0,0)}
+
+/* ---- Misi 1: jelajah ---- */
+const FOODS=[
+{e:'🍚',n:'Nasi',t:['Karbohidrat'],f:'Sumber energi utama bagi tubuh. Nasi merah memberi tambahan serat.'},
+{e:'🍗',n:'Ayam',t:['Protein','Lemak'],f:'Protein membantu membangun dan memperbaiki sel tubuh. Pilih yang direbus atau dipanggang.'},
+{e:'🥚',n:'Telur',t:['Protein','Vitamin & Mineral'],f:'Murah dan bergizi: kaya protein, juga mengandung vitamin A dan D.'},
+{e:'🐟',n:'Ikan',t:['Protein','Lemak sehat'],f:'Protein tinggi dan lemak sehat yang baik untuk perkembangan otak.'},
+{e:'🥬',n:'Bayam',t:['Vitamin & Mineral','Serat'],f:'Mengandung zat besi, vitamin, dan serat yang melancarkan pencernaan.'},
+{e:'🥕',n:'Wortel',t:['Vitamin & Mineral','Serat'],f:'Kaya vitamin A (pro-vitamin A) yang baik untuk kesehatan mata.'},
+{e:'🥑',n:'Alpukat',t:['Lemak','Vitamin & Mineral'],f:'Lemak tak jenuh yang baik, serta serat dan vitamin E.'},
+{e:'🍌',n:'Pisang',t:['Karbohidrat','Vitamin & Mineral'],f:'Memberi energi cepat dan mineral kalium untuk kerja otot.'}];
+const seen=new Set();
+FOODS.forEach((f,i)=>{const b=document.createElement('button');b.className='food';b.innerHTML=`<span>${f.e}</span>${f.n}`;
+b.onclick=()=>{seen.add(i);b.classList.add('seen');
+$('#info').innerHTML=`<h3>${f.e} ${f.n}</h3><p>${f.t.map(x=>`<span class="tag">${x}</span>`).join('')}</p><p>${f.f}</p>`;
+$('#cnt').textContent=seen.size;if(seen.size===FOODS.length)$('#exOk').hidden=false};
+$('#fgrid').appendChild(b)});
+
+/* ---- Mesin seret / ketuk ---- */
+const shuf=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(x=>x[1]);
+function engine(o){let sel=null,n=0;const fb=$(o.fb);
+const say=(ok,t)=>{fb.className='fb '+(ok?'ok':'no');fb.textContent=t};
+const items=shuf(o.items).map(d=>{const e=document.createElement('div');e.className='it';e.draggable=true;
+e.dataset.k=d.k;e.dataset.ok=d.ok||'';e.dataset.hint=d.hint||'';e.innerHTML=d.h;o.tray.appendChild(e);
+e.onclick=()=>{if(e.classList.contains('done'))return;items.forEach(x=>x.classList.remove('sel'));
+if(sel===e){sel=null}else{sel=e;e.classList.add('sel')}};
+e.ondragstart=()=>{items.forEach(x=>x.classList.remove('sel'));sel=e;e.classList.add('sel')};return e});
+o.targets.forEach(d=>{const t=document.createElement('div');t.className='tg';t.dataset.k=d.k;
+t.innerHTML=`<b>${d.h}</b><div class="slot"></div>`;o.zone.appendChild(t);
+const put=()=>{if(!sel){say(false,'Pilih dulu satu kartu, lalu pilih tempatnya.');return}
+if(t.classList.contains('full')){say(false,'Bagian ini sudah terisi. Coba bagian lain.');return}
+const it=sel;
+if(it.dataset.k===t.dataset.k){it.classList.remove('sel');it.classList.add('done');it.draggable=false;
+t.querySelector('.slot').appendChild(it);if(!o.multi)t.classList.add('full');
+if(!it.dataset.t)sc[o.key]++;sel=null;n++;
+say(true,'✅ '+(it.dataset.ok||'Tepat sekali!'));
+if(n===items.length){say(true,'🎉 Semua tepat! Kamu berhasil menyelesaikan misi ini.');o.done&&(o.done.hidden=false)}}
+else{it.dataset.t=1;t.classList.add('bad');setTimeout(()=>t.classList.remove('bad'),450);
+say(false,'❌ Belum tepat. '+(it.dataset.hint||'Coba pikirkan lagi, kamu pasti bisa!'))}};
+t.onclick=put;t.ondragover=e=>e.preventDefault();t.ondrop=e=>{e.preventDefault();put()}})}
+
+/* ---- Misi 2 ---- */
+const H='Ingat zat gizi yang paling banyak di makanan ini.';
+function initDD(){$('#ddT').innerHTML=$('#ddZ').innerHTML='';
+engine({key:'dd',tray:$('#ddT'),zone:$('#ddZ'),fb:'#ddF',multi:true,
+targets:[{k:'k',h:'🍞 Karbohidrat'},{k:'p',h:'💪 Protein'},{k:'l',h:'🥜 Lemak'},{k:'v',h:'🍊 Vitamin & Mineral'}],
+items:[
+{k:'k',h:'🍚 Nasi',ok:'Nasi kaya karbohidrat, sumber energi.',hint:'Makanan pokok ini memberi tenaga.'},
+{k:'k',h:'🍠 Singkong',ok:'Singkong sumber karbohidrat pengganti nasi.',hint:'Umbi ini mengandung banyak pati.'},
+{k:'p',h:'🟫 Tempe',ok:'Tempe sumber protein nabati.',hint:'Terbuat dari kedelai: bahan pembangun tubuh.'},
+{k:'p',h:'🥚 Telur',ok:'Telur kaya protein hewani.',hint:'Zat gizi pembangun sel ada banyak di sini.'},
+{k:'l',h:'🥑 Alpukat',ok:'Alpukat mengandung lemak sehat.',hint:'Buah ini teksturnya lembut berlemak.'},
+{k:'l',h:'🫒 Minyak zaitun',ok:'Minyak zaitun hampir seluruhnya lemak (lemak tak jenuh).',hint:'Hampir semua isinya lemak. '+H},
+{k:'v',h:'🥬 Bayam',ok:'Bayam kaya vitamin, mineral, dan serat.',hint:'Sayur hijau ini kaya zat pengatur tubuh.'},
+{k:'v',h:'🍊 Jeruk',ok:'Jeruk kaya vitamin C.',hint:'Buah asam ini menjaga daya tahan tubuh.'}]})}
+
+/* ---- Misi 3 ---- */
+function initMT(){$('#mtT').innerHTML=$('#mtZ').innerHTML='';
+engine({key:'mt',tray:$('#mtT'),zone:$('#mtZ'),fb:'#mtF',
+items:[{k:'1',h:'🍞 Karbohidrat'},{k:'2',h:'💪 Protein'},{k:'3',h:'🥜 Lemak'},{k:'4',h:'🍊 Vitamin & Mineral'},{k:'5',h:'🥦 Serat'}].map(x=>({...x,ok:'Pasangan yang cocok!',hint:'Perhatikan tugas utama zat gizi ini bagi tubuh.'})),
+targets:shuf([{k:'1',h:'Sumber energi utama untuk beraktivitas'},{k:'2',h:'Membangun dan memperbaiki sel tubuh'},{k:'3',h:'Cadangan energi dan membantu penyerapan vitamin A, D, E, K'},{k:'4',h:'Mengatur fungsi tubuh dan menjaga daya tahan'},{k:'5',h:'Melancarkan pencernaan'}])})}
+
+/* ---- Misi 4 ---- */
+function initPZ(){$('#pzT').innerHTML=$('#pzZ').innerHTML='';$('#pzOk').hidden=true;
+engine({key:'pz',tray:$('#pzT'),zone:$('#pzZ'),fb:'#pzF',done:$('#pzOk'),
+items:[
+{k:'a',h:'⚡ Memberi tenaga untuk belajar dan bermain (nasi, jagung, kentang)',ok:'Makanan pokok memberi energi.',hint:'Cari bagian piring untuk sumber energi.'},
+{k:'b',h:'🧱 Membangun dan memperbaiki tubuh (ikan, tempe, telur)',ok:'Lauk pauk adalah sumber protein.',hint:'Cari bagian piring untuk protein.'},
+{k:'c',h:'🌿 Kaya serat dan mineral, porsi terbanyak bersama buah (bayam, wortel)',ok:'Sayuran melengkapi serat dan mineral.',hint:'Ini berasal dari tumbuhan hijau yang dimasak atau dilalap.'},
+{k:'d',h:'🍌 Manis alami, kaya vitamin C dan serat (pisang, pepaya, jeruk)',ok:'Buah menyempurnakan piring dengan vitamin.',hint:'Ini pelengkap manis alami, bukan sayur.'}],
+targets:[{k:'a',h:'🍚 Makanan Pokok'},{k:'b',h:'🍗 Lauk Pauk'},{k:'c',h:'🥬 Sayuran'},{k:'d',h:'🍉 Buah'}]})}
+
+/* ---- Misi 5: kuis ---- */
+const Q=[
+{s:'Rani sarapan nasi goreng dan es teh manis setiap hari, tanpa sayur atau buah.',q:'Zat gizi apa yang paling kurang pada sarapan Rani?',o:['Karbohidrat','Vitamin, mineral, dan serat','Energi','Lemak'],a:1,e:'Sayur dan buah adalah sumber vitamin, mineral, dan serat yang tidak ada pada menu Rani.'},
+{q:'Mengapa anak seusiamu perlu cukup protein?',o:['Agar mudah mengantuk','Untuk membangun dan memperbaiki sel saat tumbuh','Untuk menyimpan air','Agar cepat gemuk'],a:1,e:'Protein membangun dan memperbaiki sel; anak yang sedang tumbuh sangat membutuhkannya.'},
+{q:'Menurut prinsip Isi Piringku, sayur dan buah sebaiknya mengisi sekitar…',o:['Seperempat piring','Sepertiga piring','Setengah piring','Seluruh piring'],a:2,e:'Sayur dan buah mengisi sekitar setengah piring, setengah lainnya untuk makanan pokok dan lauk pauk.'},
+{s:'Andi hampir setiap hari hanya makan nasi dan kerupuk. Beberapa bulan kemudian ia mudah lelah dan sering sakit.',q:'Penyebab yang paling masuk akal adalah…',o:['Andi kurang tidur saja','Menunya kurang beragam sehingga kekurangan protein, vitamin, dan mineral','Nasi tidak boleh dimakan','Andi terlalu banyak minum air putih'],a:1,e:'Sebab-akibat: menu kurang beragam membuat tubuh kekurangan zat pengatur dan pembangun, sehingga daya tahan menurun.'},
+{q:'Menu bekal sekolah manakah yang paling seimbang?',o:['Mie instan dan kerupuk','Roti manis dan sirup','Nasi, ikan, tumis sayur, dan pisang','Gorengan dan es manis'],a:2,e:'Menu ini lengkap: makanan pokok, lauk, sayur, dan buah.'}];
+function showQ(){qTried=false;const q=Q[qi];$('#qn').textContent=`Pertanyaan ${qi+1} dari ${Q.length}`;
+$('#qNext').hidden=true;$('#qNext').textContent=qi===Q.length-1?'Selesai Kuis →':'Lanjut →';
+$('#qF').className='fb';$('#qF').textContent='Pilih jawaban yang paling tepat. Boleh mencoba lagi jika salah.';
+$('#qb').innerHTML=(q.s?`<div class="story">📖 ${q.s}</div>`:'')+`<h3>${q.q}</h3>`;
+q.o.forEach((t,i)=>{const b=document.createElement('button');b.className='opt';b.textContent=t;
+b.onclick=()=>{if(i===q.a){b.classList.add('r');$$('.opt').forEach(x=>x.disabled=true);
+if(!qTried)sc.qz++;$('#qF').className='fb ok';$('#qF').textContent='✅ Benar! '+q.e;$('#qNext').hidden=false}
+else{qTried=true;b.classList.add('w');b.disabled=true;$('#qF').className='fb no';$('#qF').textContent='❌ Belum tepat. Baca lagi soalnya dan coba pilihan lain, atau klik Lanjut untuk ke soal berikutnya.';$('#qNext').hidden=false}};
+$('#qb').appendChild(b)})}
+function nextQ(){if(qi<Q.length-1){qi++;showQ()}else go(6)}
+
+/* ---- Misi 6: menu ---- */
+const MENU=[
+['🍚 Makanan pokok',[['Nasi merah',1],['Mie instan',0],['Kentang rebus',1]]],
+['🍗 Lauk pauk',[['Ikan bakar',1],['Telur rebus',1],['Kerupuk',0]]],
+['🥬 Sayuran',[['Sayur bayam',1],['Tanpa sayur',0],['Tumis kangkung',1]]],
+['🍉 Buah / minuman',[['Pisang',1],['Pepaya',1],['Es sirup manis',0]]]];
+$('#mn').innerHTML=MENU.map((m,i)=>`<label for="m${i}">${m[0]}</label><select id="m${i}">${m[1].map(o=>`<option value="${o[1]}">${o[0]}</option>`).join('')}</select>`).join('');
+function checkMenu(){let g=0;const tips=[];MENU.forEach((m,i)=>{const v=+$('#m'+i).value;g+=v;
+if(!v)tips.push('ganti pilihan "'+m[0].slice(3)+'" dengan yang lebih bergizi')});
+const f=$('#mnF');
+if(g===4){f.className='fb ok';f.textContent='🌟 Menu luar biasa! Lengkap: pokok, lauk, sayur, dan buah. Itulah gizi seimbang.'}
+else{f.className='fb no';f.textContent=`Menumu hampir ada (${g}/4 bagian bergizi). Saran: ${tips.join('; ')}.`}}
+
+/* ---- Hasil ---- */
+function result(){const t=Object.values(sc).reduce((a,b)=>a+b,0),m=22,p=Math.round(t/m*100);
+saveRec(t,p);$('#pct').textContent=p+'%';$('#mt').style.width=p+'%';
+$('#msg').textContent=p>=80?'Luar biasa! Kamu detektif gizi sejati. 🌟':p>=60?'Bagus! Sedikit lagi kamu menguasainya. 👍':'Terus semangat! Ulangi misi untuk memperkuat pemahamanmu. 💪';
+$('#rs').innerHTML=[['Kelompokkan makanan','dd'],['Cocokkan zat gizi','mt'],['Puzzle Isi Piringku','pz'],['Kuis','qz']].map(x=>`<li>${x[0]}: <b>${sc[x[1]]}/${MAX[x[1]]}</b> benar pada percobaan pertama</li>`).join('')}
+function restart(){sid=Date.now()+Math.random();sc={dd:0,mt:0,pz:0,qz:0};qi=0;seen.clear();$('#cnt').textContent=0;$('#exOk').hidden=true;$$('.food').forEach(b=>b.classList.remove('seen'));
+$('#info').innerHTML='<p style="color:var(--mut)">Klik salah satu makanan di atas untuk melihat informasinya.</p>';
+['ddF','mtF','pzF'].forEach(i=>{$('#'+i).className='fb';$('#'+i).textContent='Pilih satu kartu, lalu pilih tempatnya.'});
+$('#fin').hidden=true;$('#rf1').value=$('#rf2').value='';initDD();initMT();initPZ();showQ();go(0)}
+/* ---- Dashboard ---- */
+let mem=[],sid=0;const DB='gizi_hasil_v1';
+const esc=x=>String(x).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function ld(){try{const a=JSON.parse(localStorage.getItem(DB));if(Array.isArray(a))return a}catch(e){}return mem}
+function sv(a){mem=a;try{localStorage.setItem(DB,JSON.stringify(a))}catch(e){}}
+const LBL=[['dd','Kelompokkan makanan'],['mt','Cocokkan zat gizi'],['pz','Puzzle Isi Piringku'],['qz','Kuis']];
+function saveRec(t,p){if(!t)return;const nm=($('#nm').value||'').trim()||'Siswa tanpa nama';const a=ld();
+const r={sid,name:nm,time:new Date().toLocaleString('id-ID'),dd:sc.dd,mt:sc.mt,pz:sc.pz,qz:sc.qz,total:t,pct:p};
+const i=a.findIndex(x=>x.sid===sid);if(i>=0)a[i]=r;else a.push(r);sv(a)}
+function dashS(){const nm=($('#nm').value||'').trim();
+$('#dsName').textContent=nm?'Halo, '+nm+'! Ini progres belajarmu.':'Isi namamu di halaman awal agar hasilmu tersimpan.';
+const t=Object.values(sc).reduce((a,b)=>a+b,0),p=Math.round(t/22*100);
+const mine=ld().filter(r=>nm&&r.name.toLowerCase()===nm.toLowerCase());
+const best=mine.reduce((m,r)=>Math.max(m,r.pct),0);
+$('#dsStats').innerHTML=`<div class="stat"><b>${p}%</b>Nilai sesi ini</div><div class="stat"><b>${best}%</b>Nilai terbaik</div><div class="stat"><b>${mine.length}</b>Percobaan tersimpan</div>`;
+$('#dsBars').innerHTML=LBL.map(x=>`<div class="bl"><span>${x[1]}</span><span>${sc[x[0]]}/${MAX[x[0]]}</span></div><div class="meter"><i style="width:${sc[x[0]]/MAX[x[0]]*100}%"></i></div>`).join('');
+$('#dsHist').innerHTML=mine.length?'<ul class="res">'+mine.slice().reverse().map(r=>`<li>${esc(r.time)}: <b>${r.pct}%</b> (${r.total}/22)</li>`).join('')+'</ul>':'<p class="sub">Belum ada riwayat. Selesaikan misi sampai halaman Hasil agar tersimpan.</p>'}
+function bestList(){const m={};ld().forEach(r=>{const k=r.name.toLowerCase();m[k]=m[k]||{n:0,r:null};m[k].n++;if(!m[k].r||r.pct>m[k].r.pct)m[k].r=r});
+return Object.values(m).sort((a,b)=>a.r.name.localeCompare(b.r.name))}
+function dashG(){const b=bestList(),n=b.length;
+const avg=n?Math.round(b.reduce((a,x)=>a+x.r.pct,0)/n):0,tn=b.filter(x=>x.r.pct>=70).length;
+const ak=LBL.map(l=>({l:l[1],v:n?Math.round(b.reduce((a,x)=>a+x.r[l[0]],0)/n/MAX[l[0]]*100):0}));
+const low=n?ak.slice().sort((x,y)=>x.v-y.v)[0].l:'-';
+$('#dgStats').innerHTML=`<div class="stat"><b>${n}</b>Siswa</div><div class="stat"><b>${avg}%</b>Rata-rata nilai</div><div class="stat"><b>${tn}/${n}</b>Siswa tuntas</div><div class="stat"><b style="font-size:1rem">${low}</b>Perlu penguatan</div>`;
+$('#dgBars').innerHTML=ak.map(x=>`<div class="bl"><span>${x.l}</span><span>${x.v}%</span></div><div class="meter"><i style="width:${x.v}%"></i></div>`).join('');
+$('#dgTbl').innerHTML=n?'<div class="tw"><table><tr><th>Nama</th><th>Kelompok</th><th>Cocok</th><th>Puzzle</th><th>Kuis</th><th>Nilai</th><th>Status</th><th>Percobaan</th></tr>'+b.map(x=>`<tr><td>${esc(x.r.name)}</td><td>${x.r.dd}/8</td><td>${x.r.mt}/5</td><td>${x.r.pz}/4</td><td>${x.r.qz}/5</td><td><b>${x.r.pct}%</b></td><td class="${x.r.pct>=70?'st-ok':'st-no'}">${x.r.pct>=70?'Tuntas':'Perlu bimbingan'}</td><td>${x.n}</td></tr>`).join('')+'</table></div>':'<p class="sub">Belum ada data. Data muncul setelah siswa membuka halaman Hasil.</p>'}
+function csv(){const b=bestList();if(!b.length){alert('Belum ada data untuk diunduh.');return}
+const rows=[['Nama','Kelompokkan (maks 8)','Cocokkan (maks 5)','Puzzle (maks 4)','Kuis (maks 5)','Total (maks 22)','Nilai (%)','Status','Percobaan']].concat(b.map(x=>[x.r.name,x.r.dd,x.r.mt,x.r.pz,x.r.qz,x.r.total,x.r.pct,x.r.pct>=70?'Tuntas':'Perlu bimbingan',x.n]));
+const t='\ufeff'+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\r\n');
+const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'text/csv;charset=utf-8'}));a.download='rekap-gizi-seimbang.csv';document.body.appendChild(a);a.click();a.remove()}
+function clr(){if(confirm('Hapus semua data hasil siswa di perangkat ini?')){sv([]);dashG()}}
+restart();
+</script></body></html>
